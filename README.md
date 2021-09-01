@@ -1,4 +1,4 @@
-# Exercícios Python
+# Exercícios.py
 Deixarei aqui alguns exercícios que fiz na linguagem Python.
 
 Os Exercícios foram tirados de...
