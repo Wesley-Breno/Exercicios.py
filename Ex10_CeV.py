@@ -1,4 +1,4 @@
-# Exercício Python 010 do Curso em Video:
+# Exercício Python 10 do Curso em Video:
 #   Crie um programa que leia quanto dinheiro uma pessoa tem na carteira
 #   e mostre quantos dólares ela pode comprar.
 
