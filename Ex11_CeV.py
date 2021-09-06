@@ -4,7 +4,7 @@
 
 from functions import erro
 
-parar = 0
+parar = 0   # Variavel para encerrar o programa.
 while True:
     if parar == 1:
         break
@@ -17,8 +17,8 @@ while True:
         except:
             erro()
         else:
-            area = largura * altura
-            tinta_necessaria = (largura * altura) / 2
+            area = largura * altura    # Area de parede.
+            tinta_necessaria = (largura * altura) / 2    # Tinta necessaria para pintar a area.
             print(f'\nVoce precisara de \033[;1m{tinta_necessaria}\033[ml de tinta\nPara pintar a area da sua parede de {area}m².')
             while True:
                 try:
@@ -29,7 +29,7 @@ while True:
                     if encerrar == 'S':
                         print(f'\n\n{"_- Programa encerrado com sucesso -_":^45}')
                         print(f'{"_- Ate logo -_":^45}\n\n')
-                        parar += 1
+                        parar += 1    # "parar" recebe mais um para poder encerrar o programa.
                         break
                     elif encerrar == 'N':
                         parar = 0
