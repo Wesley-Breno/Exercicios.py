@@ -9,3 +9,20 @@ def pular(n=1):
     """
     for c in range(0, n):
         print()
+
+
+def erro(msg=''):
+    if len(msg) <= 0:
+        pular(2)
+        print('__' * 14)
+        print('[\033[1;31mERROR\033[m]\nTente novamente.')
+        print('__' * 14)
+        input('\nPressione \033[1;4menter\033[m para continuar.')
+        pular(2)
+    else:
+        pular(2)
+        print('__' * 14)
+        print(f'[\033[1;31mERROR\033[m]\n{msg}')
+        print('__' * 14)
+        input('\nPressione \033[1;4menter\033[m para continuar.')
+        pular(2)
