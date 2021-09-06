@@ -12,6 +12,11 @@ def pular(n=1):
 
 
 def erro(msg=''):
+    """
+    Função para mostrar uma mensagem de erro.
+    :param msg: Usada para mostrar uma mensagem de erro especifica.
+    :return: None
+    """
     if len(msg) <= 0:
         pular(2)
         print('__' * 14)
