@@ -1,5 +1,6 @@
 # Exercícios.py
 Deixarei aqui alguns exercícios que fiz na linguagem Python.
+
 Todos os exercicio foram feitos apenas para o meu aprimoramento na programação.
 
 Os Exercícios foram tirados de...
