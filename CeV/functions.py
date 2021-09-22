@@ -31,3 +31,30 @@ def erro(msg=''):
         print('__' * 14)
         input('\nPressione \033[1;4menter\033[m para continuar.')
         pular(2)
+
+
+def press_enter(msg=0):
+    """
+    Vai fazer uma pausa na execuçao do codigo
+    e pedir para o usuario pressionar enter para continuar.
+    :param msg: Sera uma mensagem personalizada.
+    :return: None
+    """
+    if msg == 0:
+        input('pressione \033[;1mEnter\033[m para continuar.')
+    else:
+        input(f'pressione \033[;1mEnter\033[m {msg}')
+
+
+def titulo(msg):
+    """
+    Função para criar um titulo.
+    :param msg: String que sera o titulo.
+    :return: None
+    """
+    pular(2)
+    print('-=-' * 15)
+    print(f'\033[;1m{msg:^45}\033[m')
+    print('-=-' * 15)
+    pular(2)
+
