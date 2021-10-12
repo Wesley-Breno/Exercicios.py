@@ -58,3 +58,52 @@ def titulo(msg):
     print('-=-' * 15)
     pular(2)
 
+
+def encerrar(msg):
+    """
+    Funcao que faz uma pergunta ao usuario para saber se ele
+    quer encerrar o programa ou nao, usando apenas uma letra
+    para considerar o SIM e o NAO.
+
+    :param msg: Parametro para trocar a palavra 'programa' por outra.
+    EX: 'Deseja encerrar o JOGO?'
+
+    :return: retorna 1 se o usuario deseja encerrar,
+    retorna 0 se ele nao quiser encerrar.
+    """
+    if len(msg) == 0:
+        while True:
+            try:
+                pular(3)
+                print('__' * 15)
+                print('Deseja encerrar o programa?\n[\033[;1mS\033[m = Sim] - [\033[;1mN\033[m = Nao]')
+                pergunta = str(input('-> ')).upper()[0]
+                print('__' * 15)
+            except:
+                erro('Informe um dado valido.')
+            else:
+                if pergunta == 'S' or pergunta == 'N':
+                    if pergunta == 'S':
+                        return 1
+                    else:
+                        return 0
+                else:
+                    erro('Informe um dado valido.')
+    else:
+        while True:
+            try:
+                pular(3)
+                print('__' * 15)
+                print(f'Deseja encerrar o {msg}?\n[\033[;1mS\033[m = Sim] - [\033[;1mN\033[m = Nao]')
+                pergunta = str(input('-> ')).upper()[0]
+                print('__' * 15)
+            except:
+                erro('Informe um dado valido.')
+            else:
+                if pergunta == 'S' or pergunta == 'N':
+                    if pergunta == 'S':
+                        return 1
+                    else:
+                        return 0
+                else:
+                    erro('Informe um dado valido.')
