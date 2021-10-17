@@ -1,3 +1,5 @@
+# Algoritmo que usei para poder criar uma janela em branco. 
+
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
