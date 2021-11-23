@@ -1,5 +1,7 @@
 # Aqui fica algumas funcoes que irei usar em alguns exercicios. :)
 
+from time import sleep
+
 def pular(n=1):
     """
     Funcao que sera usada para pular linhas sem o uso exagerado
@@ -59,7 +61,7 @@ def titulo(msg):
     pular(2)
 
 
-def encerrar(msg):
+def encerrar(msg=0):
     """
     Funcao que faz uma pergunta ao usuario para saber se ele
     quer encerrar o programa ou nao, usando apenas uma letra
@@ -71,7 +73,7 @@ def encerrar(msg):
     :return: retorna 1 se o usuario deseja encerrar,
     retorna 0 se ele nao quiser encerrar.
     """
-    if len(msg) == 0:
+    if msg == 0:
         while True:
             try:
                 pular(3)
@@ -107,3 +109,17 @@ def encerrar(msg):
                         return 0
                 else:
                     erro('Informe um dado valido.')
+
+
+def programa_encerrado(string='Programa'):
+    """
+    Funcao para mostrar uma mensagem de adeus para o usuario
+    quando o programa/jogo for encerrado.
+
+    :param string: Variavel para trocar a palavra "Programa" por outra como "jogo" e etc.
+    :return: Null
+    """
+    pular(3)
+    print(f'{f"{string} encerrado com sucesso.":^45}')
+    print(f'{"Ate logo ♥":^45}')
+    pular(3)
