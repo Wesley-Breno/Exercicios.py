@@ -10,3 +10,6 @@ Os exercícios foram tirados de...
 
  > ***Eletrônica e Programação***
    * https://www.youtube.com/playlist?list=PLwsAoT89dh3qJ8JcprQ8AuHY8AGasvx4G
+   
+ > ***Udemy***
+   * https://www.udemy.com/course/python-3-do-zero-ao-avancado/
