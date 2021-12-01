@@ -1,6 +1,4 @@
-# Faça um programa que peça ao usuario para digitar um numero inteiro,
-# informe se este numero é par ou impar. Caso o usuario nao digite um numero
-# inteiro, informe que nao é um numero inteiro.
+from time import localtime  # Metodo para pegar o tempo atual
 
 while True:
     print(f'\n\033[;1m{"Bem vindo ao menu":^45}\033[m')
@@ -58,9 +56,76 @@ Escolha: '''))
                         input('Pressione \033[1;4mEnter\033[m para voltar ao menu.')
                         print('\n' * 5)
         elif escolha == 2:
-            print('\nEXERCICIO 2\n')
+            print(f'\n\n{"Exercicio 2":^45}')
+            hora = localtime()[3:5]  # Hora atual
+            if hora[0] <= 11:
+                print(f'\n\n{f"São exatamente {hora[0]}:{hora[1]}":^45}')
+                print(f'{"Bom dia ❤":^45}')
+            elif hora[0] <= 17:
+                print(f'\n\n{f"São exatamente {hora[0]}:{hora[1]}":^45}')
+                print(f'{"Boa tarde ❤":^45}')
+            elif hora[0] <= 23 or hora[0] == 24 or hora[0] == 0:
+                print(f'\n\n{f"São exatamente {hora[0]}:{hora[1]}":^45}')
+                print(f'{"Boa noite ❤":^45}')
+            print()
+            print('__' * 18)
+            input('Pressione \033[1;4mEnter\033[m para voltar ao menu.')
+            print('\n' * 5)
         elif escolha == 3:
-            print('\nEXERCICIO 3\n')
+            print(f'\n\n{"Exercicio 3":^45}')
+            try:
+                nome = str(input('\n\nPor favor, digite o seu 1º nome abaixo...\nNome: ').strip().title())
+            except:
+                print('\n\n\033[1;31mERRO\033[m\nVerifique o valor inserido.\nPor favor, tente novamente.')
+                print()
+                print('__' * 18)
+                input('Pressione \033[1;4mEnter\033[m para voltar ao menu.')
+                print('\n' * 5)
+            else:
+                # Pegando o primeiro nome e verificando se tem numero/caracte especial.
+                nome_lista = nome.split()
+                if nome_lista[0].isalpha():
+                    total_de_caracteres = len(nome_lista[0])
+                    if total_de_caracteres <= 4:
+                        print(f'''\n\nSeu nome é curto
+
+Nome: {nome_lista[0]}
+Total de caracteres: {total_de_caracteres}''')
+                        print()
+                        print('__' * 18)
+                        input('Pressione \033[1;4mEnter\033[m para voltar ao menu.')
+                        print('\n' * 5)
+                    elif total_de_caracteres <= 6:
+                        print(f'''\n\nSeu nome tem um tamanho normal
+
+Nome: {nome_lista[0]}
+Total de caracteres: {total_de_caracteres}''')
+                        print()
+                        print('__' * 18)
+                        input('Pressione \033[1;4mEnter\033[m para voltar ao menu.')
+                        print('\n' * 5)
+                    elif total_de_caracteres > 6:
+                        print(f'''\n\nSeu nome é muito grande
+
+Nome: {nome_lista[0]}
+Total de caracteres: {total_de_caracteres}''')
+                        print()
+                        print('__' * 18)
+                        input('Pressione \033[1;4mEnter\033[m para voltar ao menu.')
+                        print('\n' * 5)
+                else:
+                    if nome == '':
+                        print(f'\n\033[1;31mERRO\033[m\nDigite um nome valido.\nPor favor, tente novamente.')
+                        print()
+                        print('__' * 18)
+                        input('Pressione \033[1;4mEnter\033[m para voltar ao menu.')
+                        print('\n' * 5)
+                    else:
+                        print(f'\n\033[1;31mERRO\033[m\n\n[ {nome_lista[0]} ]\nNao use numeros e caracteres especiais\nPor favor, tente novamente.')
+                        print()
+                        print('__' * 18)
+                        input('Pressione \033[1;4mEnter\033[m para voltar ao menu.')
+                        print('\n' * 5)
         elif escolha == 4:
             print('\n' * 5)
             print(f'\033[1;37m{"Informações":^65}\033[m')
