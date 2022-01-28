@@ -21,16 +21,16 @@ def erro(msg=''):
     """
     if len(msg) <= 0:
         pular(2)
-        print('__' * 14)
+        print('__' * 16)
         print('[\033[1;31mERROR\033[m]\nTente novamente.')
-        print('__' * 14)
+        print('__' * 16)
         input('\nPressione \033[1;4menter\033[m para continuar.')
         pular(2)
     else:
         pular(2)
-        print('__' * 14)
+        print('__' * 16)
         print(f'[\033[1;31mERROR\033[m]\n\n{msg}')
-        print('__' * 14)
+        print('__' * 16)
         input('\nPressione \033[1;4menter\033[m para continuar.')
         pular(2)
 
