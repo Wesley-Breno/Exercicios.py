@@ -123,3 +123,15 @@ def programa_encerrado(string='Programa'):
     print(f'{f"{string} encerrado com sucesso.":^45}')
     print(f'{"Ate logo ♥":^45}')
     pular(3)
+
+
+def linha(tipo='__', vezes=12):
+    """
+    Funcao que vai escrever na tela, por padrao ou escolha do programador, uma linha na tela
+    com o tamanho que ele quiser.
+
+    :param tipo: Parametro onde fica o tipo de string que sera repetida.
+    :param vezes: Parametro onde fica quantas vezes vai se repetir.
+    :return:
+    """
+    print(f'{tipo}' * vezes)
