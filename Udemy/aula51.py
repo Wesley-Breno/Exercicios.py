@@ -1,116 +1,63 @@
-# Faça um gerador de CPFs
+"""
+Exercício para fazer um algoritmo que gere um CPF.
+"""
 
-# Funcoes minhas que foram usadas
-from functions import titulo, press_enter, encerrar, programa_encerrado, pular
-from random import randint  # Usado para gerar numeros inteiros aleatorios
+from random import randint  # Função usada para gerar numeros inteiros aleatorios.
+from functions import linha, pular, press_enter, encerrar, programa_encerrado  # Funções que criei.
 
-deseja = 0  # Variavel usada para saber se o usuario quer encerrar
-while deseja != 1:
-    titulo('Gerador de CPFs')
+cpf_valido = False
+cpf, cpf_copia = [], []
+deseja_encerrar = 0
+
+pular(5)
+
+while True:  # Enquanto o usuario nao quiser encerrar o programa.
     press_enter('para gerar um CPF.')
+    cont = 0  # Contador que sera usado para saber onde colocar as pontuações.
 
-    contador_decrescente = 10  # diminui ate 0 para parar de multiplicar
-    soma1, soma2, numero1, numero2 = 0, 0, 0, 0  # A soma dos 2 calculos e os 2 ultimos digitos do novo CPF
+    while not cpf_valido:
 
-    # Criando uma variavel CPF que vai receber 11 caracteres
-    cpf = []
-    for c in range(0, 11):
-        cpf.append(str(randint(0, 9)))
-    cpf = ''.join(cpf)
+        soma, calculo = 0, 0  # Serão usados para pegar o penultimo e ultimo numero do CPF.
+        cpf, cpf_copia = [], []
 
-    # Operacao para calcular o penultimo numero do CPF
-    for n in cpf[:9]:
-        soma1 += int(n) * contador_decrescente
-        contador_decrescente -= 1
-    resultado1 = 11 - (soma1 % 11)
-    if resultado1 > 9:
-        numero1 = 0
-    else:
-        numero1 = resultado1
+        for c in range(11):
+            cpf.append(randint(0, 9))
 
-    # Operacao para calcular o ultimo numero do CPF
-    contador_decrescente = 11
-    for n in cpf[:9]:
-        soma2 += int(n) * contador_decrescente
-        contador_decrescente -= 1
-        if contador_decrescente == 2:
-            soma2 += numero1 * contador_decrescente
-    resultado2 = 11 - (soma2 % 11)
-    if resultado2 > 9:
-        numero2 = 0
-    else:
-        numero2 = resultado2
+        for p, n in enumerate(range(10, 1, -1)):  # Pegando a multiplicacao de cada numero na sequencia que foi mostrada na aula e fazendo a soma.
+            soma += cpf[p] * n
 
-    # Criando um novo cpf com os calculos que foram feitos
-    novo_cpf = []
-    for n in cpf[:9]:
-        novo_cpf.append(n)
-    novo_cpf.append(str(numero1))
-    novo_cpf.append(str(numero2))
-    novo_cpf = ''.join(novo_cpf)
+        calculo = 11 - (soma % 11)
+        calculo = 0 if calculo > 9 else calculo
+        cpf_copia.append(cpf[:9])
+        cpf_copia.append(calculo)
 
-    # Se o novo cpf for igual ao antigo entao o cpf é valido
-    if cpf == novo_cpf:
-        pular(3)
-        print('__' * 12)
-        print(f'Aqui esta seu CPF↴\n\n\033[;1m{cpf:^26}\033[m')   # Mostrando o CPF valido ao usuario
-        print('__' * 12)
+        calculo, soma = 0, 0  # Zerando as variaveis para pegar o calculo do ultimo numero do CPF.
 
-    # Se o algoritmo nao conseguir achar um CPF valido de primeira...
-    else:
-        while cpf != novo_cpf:  # Enquanto o algoritmo nao criar um CPF que seja valido ele ira ficar no loop
+        for p, n in enumerate(range(11, 1, -1)):
+            soma += cpf[p] * n
 
-            contador_decrescente = 10   # diminui ate 0 para parar de multiplicar
-            soma1, soma2, numero1, numero2 = 0, 0, 0, 0  # A soma dos 2 calculos e os 2 ultimos digitos do novo CPF
+        calculo = 11 - (soma % 11)
+        calculo = 0 if calculo > 9 else calculo
+        cpf_copia.append(calculo)
 
-            # Criando uma variavel CPF que vai receber 11 caracteres
-            cpf = []
-            for c in range(0, 11):
-                cpf.append(str(randint(0, 9)))
-            cpf = ''.join(cpf)
+        cpf_valido = True if cpf[-2:] == cpf_copia[-2:] else cpf_valido
 
-            # Operacao para calcular o penultimo numero do CPF
-            for n in cpf[:9]:
-                soma1 += int(n) * contador_decrescente
-                contador_decrescente -= 1
-            resultado1 = 11 - (soma1 % 11)
-            if resultado1 > 9:
-                numero1 = 0
-            else:
-                numero1 = resultado1
+    print()
+    linha(vezes=14)
+    print('CPF gerado: ', end='')
+    for c in cpf:
+        cont += 1
+        if cont == 3:
+            print(c, end='.')
+        elif cont == 6:
+            print(c, end='.')
+        elif cont == 9:
+            print(c, end='-')
+        else:
+            print(c, end='')
 
-            # Operacao para calcular o ultimo numero do CPF
-            contador_decrescente = 11
-            for n in cpf[:9]:
-                soma2 += int(n) * contador_decrescente
-                contador_decrescente -= 1
-                if contador_decrescente == 2:
-                    soma2 += numero1 * contador_decrescente
-            resultado2 = 11 - (soma2 % 11)
-            if resultado2 > 9:
-                numero2 = 0
-            else:
-                numero2 = resultado2
-
-            # Criando um novo cpf com os calculos que foram feitos
-            novo_cpf = []
-            for n in cpf[:9]:
-                novo_cpf.append(n)
-            novo_cpf.append(str(numero1))
-            novo_cpf.append(str(numero2))
-            novo_cpf = ''.join(novo_cpf)
-
-            # Se o novo cpf for igual ao antigo entao o cpf é valido
-            if cpf == novo_cpf:
-                pular(3)
-                print('__' * 12)
-                print(f'Aqui esta seu CPF↴\n\n\033[;1m{cpf:^26}\033[m')
-                print('__' * 12)
-                break
-
-    press_enter()
-    deseja = encerrar()     # Pergunta se o usuario deseja encerrar o programa
-    if deseja == 0:     # Se o usuario nao decidir encerrar o programa ira pular 5 linhas
-        pular(5)
+    deseja_encerrar = encerrar()
+    if deseja_encerrar == 1:
+        break
 
 programa_encerrado()
