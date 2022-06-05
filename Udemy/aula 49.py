@@ -1,61 +1,51 @@
-# Valide um CPF
+"""
+Exercício para fazer um algoritmo que o usuário coloque um CPF,
+e diga se o mesmo é valido ou não.
+"""
 
-# Funcoes que minhas que foram usadas
-from functions import erro, titulo, press_enter, encerrar, programa_encerrado, pular
+from functions import programa_encerrado, erro, linha  # Funções que criei.
 
-deseja = 0  # Variavel usada para saber se o usuario quer encerrar
-while deseja != 1:
-    titulo('Validador de CPFs')
+print(f'\n\n\033[;37m{"Digite [ 0 ] para encerrar.":^45}\033[m\n\n')
+
+while True:  # Enquanto o usuario nao digitar '0'
+    soma, calculo = 0, 0  # Serão usados para pegar o penultimo e ultimo numero do CPF.
+    numeros_do_cpf, cpf_copia = [], []
+
+    linha(vezes=18)
     try:
-        cpf = str(input('\nInforme o CPF: '))
+        cpf = str(input('Digite o CPF: ')).strip()
     except:
-        erro('Digite o CPF apenas com\nos numeros.')
+        erro('Por favor\ndigite o CPF corretamente.')
     else:
-        if cpf.isnumeric():     # Se o cpf estiver somente em numeros
-            if len(cpf) == 11:  # Se o cpf tiver 11 caracteres
-                contador_decrescente = 10
-                soma1, soma2, numero1, numero2 = 0, 0, 0, 0
-                # Operacao para calcular o penultimo numero do CPF
-                for n in cpf[:9]:
-                    soma1 += int(n) * contador_decrescente
-                    contador_decrescente -= 1
-                resultado1 = 11 - (soma1 % 11)
-                if resultado1 > 9:
-                    numero1 = 0
-                else:
-                    numero1 = resultado1
-                # Operacao para calcular o ultimo numero do CPF
-                print()
-                contador_decrescente = 11
-                for n in cpf[:9]:
-                    soma2 += int(n) * contador_decrescente
-                    contador_decrescente -= 1
-                    if contador_decrescente == 2:
-                        soma2 += numero1 * contador_decrescente
-                resultado2 = 11 - (soma2 % 11)
-                if resultado2 > 9:
-                    numero2 = 0
-                else:
-                    numero2 = resultado2
-                # Criando um novo cpf com os calculos que foram feitos
-                novo_cpf = []
-                for n in cpf[:9]:
-                    novo_cpf.append(n)
-                novo_cpf.append(str(numero1))
-                novo_cpf.append(str(numero2))
-                novo_cpf = ''.join(novo_cpf)
-                # Se o novo cpf for igual ao antigo entao o cpf é valido
-                if cpf == novo_cpf:
-                    print('\nEste CPF é \033[1;32mvalido\033[m')
-                else:
-                    print('\nEste CPF é \033[1;31minvalido\033[m')
-                press_enter()
-                deseja = encerrar()     # Pergunta se o usuario deseja encerrar o programa
-                if deseja == 0:     # Se o usuario nao decidir encerrar o programa ira pular 5 linhas
-                    pular(5)
-            else:
-                erro('O CPF deve conter 11 numeros.')
+        if len(cpf) == 1 and cpf == '0':  # Se o usuario decidir encerrar o programa.
+            break
+
+        if len(cpf) == 14 or len(cpf) == 11 and cpf.isalpha() == False:  # Se for do tamanho de um CPF.
+
+            for n in cpf:  # Pegando somente os numeros do CPF.
+                if n.isdigit():
+                    numeros_do_cpf.append(int(n))
+
+            for p, n in enumerate(range(10, 1, -1)):  # Pegando a multiplicacao de cada numero na sequencia que foi mostrada na aula e fazendo a soma.
+                soma += numeros_do_cpf[p] * n
+
+            calculo = 11 - (soma % 11)
+            calculo = 0 if calculo > 9 else calculo
+            cpf_copia.append(numeros_do_cpf[:9])
+            cpf_copia.append(calculo)
+
+            calculo, soma = 0, 0  # Zerando as variaveis para pegar o calculo do ultimo numero do CPF.
+
+            for p, n in enumerate(range(11, 1, -1)):
+                soma += numeros_do_cpf[p] * n
+
+            calculo = 11 - (soma % 11)
+            calculo = 0 if calculo > 9 else calculo
+            cpf_copia.append(calculo)
+
+            print(f'\nO CPF ({cpf}) é \033[;32mvalido\033[m' if cpf_copia[-2:] == numeros_do_cpf[-2:] else f'\nO CPF ({cpf}) é \033[;31minvalido\033[m')
+
         else:
-            erro('Digite o CPF apenas com\nos numeros.')
+            erro('Por favor\ndigite o CPF corretamente.')
 
 programa_encerrado()
