@@ -5,20 +5,18 @@ Exercício para fazer um algoritmo que gere um CPF.
 from random import randint  # Função usada para gerar numeros inteiros aleatorios.
 from functions import linha, pular, press_enter, encerrar, programa_encerrado  # Funções que criei.
 
-cpf_valido = False
-cpf, cpf_copia = [], []
 deseja_encerrar = 0
-
 pular(5)
 
 while True:  # Enquanto o usuario nao quiser encerrar o programa.
     press_enter('para gerar um CPF.')
+    cpf, cpf_copia = [], []
+    cpf_valido = False
     cont = 0  # Contador que sera usado para saber onde colocar as pontuações.
 
     while not cpf_valido:
 
         soma, calculo = 0, 0  # Serão usados para pegar o penultimo e ultimo numero do CPF.
-        cpf, cpf_copia = [], []
 
         for c in range(11):
             cpf.append(randint(0, 9))
@@ -41,6 +39,9 @@ while True:  # Enquanto o usuario nao quiser encerrar o programa.
         cpf_copia.append(calculo)
 
         cpf_valido = True if cpf[-2:] == cpf_copia[-2:] else cpf_valido
+        if cpf_valido:
+            break
+        cpf, cpf_copia = [], []
 
     print()
     linha(vezes=14)
