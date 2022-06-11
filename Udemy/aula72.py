@@ -6,8 +6,7 @@ lista_de_compras = [
 
 print('--' * 25)
 
-valores_produtos = [valor for dicionario in lista_de_compras for chave, valor in dicionario.items()]  # Pegando cada preço
-valores_produtos = sum(valores_produtos)
+valores_produtos = sum([float(valor) for dicionario in lista_de_compras for chave, valor in dicionario.items()])  # Pegando cada preço
 
 exibir = [print(k, f'-> R\033[;32m$\033[m{v:.2f}') for t in lista_de_compras for k, v in t.items()]  # Mostrando produtos e seus preçoes
 print(f'\ntotal a pagar: R\033[;32m$\033[m{valores_produtos:.2f}')
