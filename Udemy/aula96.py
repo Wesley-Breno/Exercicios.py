@@ -1,140 +1,67 @@
-# Fazendo um gerador de CNPJs com o calculo da aula passada.
-
-from functions import titulo, press_enter, programa_encerrado, pular, encerrar    # Funcoes que criei.
-from random import randint    # Importacao para pegar numeros inteiros aleatorios.
+from random import randint
 
 
-def numeros_cnpj(cnpj, todos_numeros=0):
+def numeros_cnpj(cnpj):
     """
-    funcao para tirar os [ / ] e [ . ] e deixar somente os numeros
-    tirando o penultimo e ultimo ou deixando tudo completo.
-    :param cnpj: parametro onde ficara o CNPJ.
-    :param todos_numeros: se esse parametro receber 0, vai deixar todos os numeros, 1 para tirar o ultimo e penultimo.
-    :return: retorna somente os numeros do CNPJ, caso a quantidade de caracteres nao esteja certa, retorna False.
+    Funcao que so vai pegar os numeros do CNPJ, tirando os 2 ultimos digitos.
+    :param cnpj: CNPJ
+    :return: Retorna somente os numeros do CNPJ e sem os 2 ultimos digitos.
     """
-    if todos_numeros == 0:    # Deixando todos os numeros.
-        cnpj_copia = ''    # Variavel onde vai ficar so os numeros do CNPJ.
+    cnpj_copia = [n for p, n in enumerate(cnpj) if n.isdigit() and p < 15] if len(cnpj) == 18 else \
+        [n for p, n in enumerate(cnpj) if n.isdigit() and p < 12]  # Pegando tudo, menos 2 ultimos digitos
 
-        cont = 0    # Contador para saber a hora que o programa pegou todos os numeros, menos os 2 ultimos.
-        for c in cnpj:
-            if cont == 14:
-                break
-            if c.isnumeric():    # Pegando so os caracteres que sao numeros.
-                cnpj_copia += c
-                cont += 1
-
-        if len(cnpj_copia) == 14:    # Se o CNPJ ter o tamanho do caractere normal de um CNPJ (14 todos os numeros, 12 todos os numeros menos os 2 ultimos.)
-            return cnpj_copia
-        else:    # CNPJ invalido
-            return False
-
-    if todos_numeros == 1:    # Deixando os numeros, mas tirando os 2 ultimos.
-        cnpj_copia = ''  # Variavel onde vai ficar so os numeros do CNPJ.
-
-        cont = 0  # Contador para saber a hora que o programa pegou todos os numeros, menos os 2 ultimos.
-        for c in cnpj:
-            if cont == 12:
-                break
-            if c.isnumeric():  # Pegando so os caracteres que sao numeros.
-                cnpj_copia += c
-                cont += 1
-
-        if len(cnpj_copia) == 12:
-            return cnpj_copia
-        else:
-            return False
+    return ''.join(cnpj_copia)  # Retornando somente os numeros do CNPJ, sem os 2 ultimos caracteres.
 
 
-def ultimo_ou_penultimo_digito(cnpj, ultimo_ou_penultimo=0):
+def digito(cnpj, start=5):
     """
-    Funcao para pegar o ultimo ou o penultimo numero, usando o calculo
-    para mostrado na aula para isso.
-    :param cnpj: Parametro onde fica o CNPJ
-    :param ultimo_ou_penultimo: recebe 0, se for o penultimo numero, rebece 1 se for ultimo.
-    :return: Retorna o cnpj com o ultimo/penultimo numero.
+    Funcao que vai fazer o calculo e colocar o penultimo e ultimo digito do CNPJ.
+    :param cnpj: CNPJ
+    :param start: De onde ira comecar a contagem para fazer o calculo, 5 para o penultimo digito, 6 para ultimo.
+    :return: Retorna o digito
     """
-    if ultimo_ou_penultimo == 0:    # Pegando o penultimo numero.
-        cont = 5    # Contador que sera usado para fazer a multiplicacao.
-        soma = 0    # Soma da multiplicacao
-        numeros_multiplicados = []    # numeros multiplicados, listados para depois somar.
+    resultado = 0
 
-        for n in cnpj:    # Multiplicando o numero do CNPJ da vez, e usando o contador pra isso.
-            if cont == 1:    # Se o contador chegar a querer multiplicar por 1, contador recebe 9 e multiplica novamente
-                cont = 9
-            numeros_multiplicados.append(int(n) * cont)
-            cont -= 1
+    for n in cnpj:  # Indo por cada numero do CNPJ e fazendo o calculo
+        start = 9 if start == 1 else start
+        resultado += int(n) * start
+        start -= 1
 
-        for n in numeros_multiplicados:
-            soma += n
+    ult_num = 11 - (resultado % 11)  # Pegando o digito
+    ult_num = 0 if ult_num > 9 else ult_num
 
-        calculo = 11 - (soma % 11)    # Calculo para pegar o penultimo/ultimo numero do CNPJ.
-        penultimo_numero = calculo
-        if calculo > 9:    # Se o penultimo/ultimo numero for maior que 9, ele vai receber 0, conforme dito na aula.
-            penultimo_numero = 0
-            return cnpj + str(penultimo_numero)    # Concatenando o ultimo/penultimo numero do calculo com o restante do CNPJ.
-        else:
-            return cnpj + str(penultimo_numero)
-
-    if ultimo_ou_penultimo == 1:    # Pegando o penultimo numero.
-        cont = 6    # Comecando com o contador 6, porque o penultimo numero foi adicionado.
-        soma = 0
-        numeros_multiplicados = []
-
-        for n in cnpj:
-            if cont == 1:
-                cont = 9
-            numeros_multiplicados.append(int(n) * cont)
-            cont -= 1
-
-        for n in numeros_multiplicados:
-            soma += n
-
-        calculo = 11 - (soma % 11)
-        ultimo_numero = calculo
-        if calculo > 9:
-            ultimo_numero = 0
-            return cnpj + str(ultimo_numero)
-        else:
-            return cnpj + str(ultimo_numero)
+    return str(ult_num)  # Retornando digito
 
 
-titulo('Gerador de CNPJs')
-press_enter('para gerar um CNPJ.')
+def gera_cnpj():
+    """
+    Funcao que gera um CNPJ e retorna o mesmo.
+    :return: CNPJ valido
+    """
+    while True:  # Enquanto a funcao nao fazer um CNPJ valido
+        cnpj = ''
+        for posicao in range(10):  # Adicionando numeros aleatorios e colocando os '.', '/' e '-' de um CNPJ
+            if posicao == 2 or posicao == 5:
+                cnpj += '.'
+            if posicao == 7:
+                cnpj += str(randint(0, 9))
+                cnpj += '/0001-'
+            else:
+                cnpj += str(randint(0, 9))
 
-deseja = ''    # Varivel onde ficara a decisao do usuario, se ele quer ou nao encerrar o programa.
-while deseja != 1:    # Enquanto o usuario nao desejar encerrar.
-    numeros = ''    # Variavel onde ficara o CNPJ
-    numeros_copia = ''    # Copia do CNPJ
-    for c in range(0, 14):    # Pegando 14 numeros aleatorios para ser o CNPJ.
-        numeros += str(randint(0, 9))
+        cnpj_numeros = [n for n in cnpj if n.isdigit()]  # Pegando somente os numeros do CNPJ
+        cnpj_numeros = ''.join(cnpj_numeros)  # Concatenando os numeros do CNPJ
 
-    numeros_copia = numeros_cnpj(numeros, 1)    # Pegando todos os numeros, menos os 2 ultimos
-    numeros_copia = ultimo_ou_penultimo_digito(numeros_copia)    # Fazendo o calculo e pegando o penultimo numero.
-    numeros_copia = ultimo_ou_penultimo_digito(numeros_copia, 1)    # Fazendo o calculo e pegando o ultimo numero.
+        cnpj2 = numeros_cnpj(cnpj)
+        cnpj2 += digito(cnpj2)
+        cnpj2 += digito(cnpj2, 6)
 
-    if numeros_copia == numeros:    # Se apos o calculo, os numeros forem iguais, o CNPJ é valido.
-        cnpj_com_pontuacao = ''    # Variavel onde ficara o CNPJ com as pontuacoes e etc.
-        cont = 0    # Contador para saber onde o for esta e assim poder adicionar as pontuacoes no lugar certo.
-        for n in numeros:
-            if cont == 2:
-                cnpj_com_pontuacao += '.'
-            if cont == 5:
-                cnpj_com_pontuacao += '.'
-            if cont == 8:
-                cnpj_com_pontuacao += '/'
-            if cont == 12:
-                cnpj_com_pontuacao += '-'
-            cnpj_com_pontuacao += n
-            cont += 1
+        if cnpj_numeros == cnpj2:  # Comparando os numeros do CNPJ original com oque foi feito o calculo
+            break
 
-        pular(2)
-        print('--' * 16)
-        print(f'CNPJ gerado: \033[;1m{cnpj_com_pontuacao}\033[m')
-        print('--' * 16)
-        press_enter()
-        deseja = encerrar()    # Perguntando ao usuario se ele deseja encerrar o programa.
-        if deseja == 0:    # Se o usuario nao quiser encerrar o programa, o programa ira pular 5 linhas.
-            pular(5)
+    return cnpj
 
 
-programa_encerrado()    # Mensagem de despedida para o usuario.
+for c in range(5):
+    cnpj = gera_cnpj()
+    print(cnpj)
