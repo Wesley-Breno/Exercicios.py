@@ -4,11 +4,8 @@ def numeros_cnpj(cnpj):
     :param cnpj: CNPJ
     :return: Retorna somente os numeros do CNPJ e sem os 2 ultimos digitos.
     """
-    if len(cnpj) == 18:  # Se o usuario digitou o CNPJ com caracteres especiais.
-        cnpj_copia = [n for p, n in enumerate(cnpj) if n.isdigit() and p < 15]  # Pegando tudo, menos 2 ultimos digitos
-
-    else:  # Se o usuario digitou somente os numeros do CNPJ
-        cnpj_copia = [n for p, n in enumerate(cnpj) if n.isdigit() and p < 12]
+    cnpj_copia = [n for p, n in enumerate(cnpj) if n.isdigit() and p < 15] if len(cnpj) == 18 else \
+        [n for p, n in enumerate(cnpj) if n.isdigit() and p < 12]  # Pegando tudo, menos 2 ultimos digitos
 
     return ''.join(cnpj_copia)  # Retornando somente os numeros do CNPJ, sem os 2 ultimos caracteres.
 
@@ -23,14 +20,12 @@ def digito(cnpj, start=5):
     resultado = 0
 
     for n in cnpj:  # Indo por cada numero do CNPJ e fazendo o calculo
-        if start == 1:
-            start = 9
+        start = 9 if start == 1 else start
         resultado += int(n) * start
         start -= 1
 
     ult_num = 11 - (resultado % 11)  # Pegando o digito
-    if ult_num > 9:
-        ult_num = 0
+    ult_num = 0 if ult_num > 9 else ult_num
 
     return str(ult_num)  # Retornando digito
 
@@ -50,10 +45,8 @@ while True:  # Enquanto usuario nao digitar 0 na variavel 'cnpj'
         cnpj2 += digito(cnpj2)  # Fazendo calculo e colocando o penultimo digito
         cnpj2 += digito(cnpj2, 6)  # Fazendo calculo e colocando o ultimo digito
 
-        if cnpj == cnpj2:
-            print(f'\n\n\033[;1m{"Este CNPJ é valido!":^45}\033[m\n\n')
-        else:
-            print(f'\n\n\033[;1m{"Este CNPJ é invalido!":^45}\033[m\n\n')
+        print(f'\n\n\033[;1m{"Este CNPJ é valido!":^45}\033[m\n\n' if cnpj == cnpj2 else
+              f'\n\n\033[;1m{"Este CNPJ é invalido!":^45}\033[m\n\n')
 
     else:
         print('\n\n\033[1;31mERRO\033[m\nPor favor, digite o CNPJ corretamente.\n\n')
