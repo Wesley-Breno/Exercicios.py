@@ -1,0 +1,8 @@
+Foram computados 5 votos.
+Jogador			Votos			%
+1				1				20.0%
+2				1				20.0%
+3				1				20.0%
+4				1				20.0%
+5				1				20.0%
+Não houve um atleta com a maior porcentagem de votos

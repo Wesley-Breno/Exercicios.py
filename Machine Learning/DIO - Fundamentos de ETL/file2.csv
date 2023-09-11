@@ -1,0 +1,11 @@
+codigo_ocorrencia,codigo_ocorrencia2,ocorrencia_classificacao,ocorrencia_cidade,ocorrencia_uf,ocorrencia_aerodromo,ocorrencia_data,ocorrencia_horario
+1,11,[Desconhecido],Rio de Janeiro,RJ,****,2022-11-01,14:30
+2,22,Acidente,São Paulo,SP,SBSP,2022-01-02,10:15
+3,33,Incidente,Belo Horizonte,MG,****,2022-01-03,08:45
+4,44,Acidente,Recife,PE,SBRF,2022-01-04,16:20
+5,55,Incidente,Brasília,DF,SBBR,2022-01-05,12:10
+6,66,Acidente,Porto Alegre,RS,****,2022-01-06,09:05
+7,77,Incidente,Curitiba,PR,SBCT,2022-01-07,18:30
+8,88,Acidente,Salvador,BA,SBSV,2022-01-08,11:40
+9,99,Incidente,Manaus,AM,****,2022-01-09,13:25
+10,1010,Acidente,Goiânia,GO,SBGO,2022-01-10,15:50
