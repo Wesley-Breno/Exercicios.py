@@ -1,5 +1,4 @@
 <h1>Customer classification algorithm</h1>
-<h2>Naive Bayes</h2>
 
 <h2>Resume</h2>
 <p>
