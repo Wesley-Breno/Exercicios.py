@@ -1,6 +1,15 @@
 class Solution:
-    def firstPalindrome(self, words: list[str]) -> str:
-        for word in words:
-            if word == word[::-1]:
-                return word
-        return ''
+    def countOperations(self, num1: int, num2: int) -> int:
+        cont = 0
+
+        while True:
+            if num1 == 0 or num2 == 0:
+                break
+
+            if num1 < num2:
+                num2 -= num1
+            else:
+                num1 -= num2
+            cont += 1
+
+        return cont
